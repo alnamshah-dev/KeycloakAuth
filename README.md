@@ -1,20 +1,29 @@
 # KeycloakAuth
-# .NET API with Keycloak Authentication
+This repository contains a complete, containerized application stack demonstrating a modern microservices architecture. It includes a secure .NET Web API, an API Gateway, a Keycloak identity server, and Jaeger for distributed tracing.
 
-This repository showcases a secure .NET Web API integrated with **Keycloak** for robust authentication and authorization. The project demonstrates how to protect API endpoints using JSON Web Tokens (JWTs) issued by an external identity provider, following modern security best practices.
+The entire system is orchestrated with `docker-compose`, allowing you to launch all services with a single command.
 
-This project is designed to be a clean, practical reference for developers looking to implement token-based security in their .NET applications.
+## Architecture Overview
+
+This project consists of four main services working together:
+
+1.  **`keycloak.auth.proxy` (API Gateway)**
+2.  **`keycloak.auth.api` (.NET Backend Service)**: The core business logic resides here. This service is protected by Keycloak and handles the main functionality of the application.
+3.  **`keycloak` (Identity Server)**: The centralized authentication and authorization service. It manages users, roles, and issues JWTs.
+4.  **`jaeger` (Distributed Tracing)**: Collects and visualizes traces from both the API Gateway and the backend service, providing end-to-end observability of requests.
 
 ## Key Features
 
--   **Secure Authentication**: Implements JWT Bearer token authentication to protect API endpoints.
--   **Keycloak Integration**: Configured to use Keycloak as the OpenID Connect (OIDC) identity provider for centralized user management.
--   **Role-Based Authorization**: Includes examples of how to restrict access to certain endpoints based on user roles defined in Keycloak.
--   **Swagger/OpenAPI Support**: The Swagger UI is fully configured to handle the OAuth2 authentication flow, allowing for easy testing of protected endpoints directly from the browser.
--   **Configuration-Driven**: All Keycloak-related settings are managed in `appsettings.json`, allowing for easy environment-specific configuration.
+-   **Docker-Compose Setup**: Launch the entire multi-service stack with one command.
+-   **Secure Authentication**: The backend API (`keycloak.auth.api`) is secured using JWTs from Keycloak.
+-   **End-to-End Observability**: Distributed tracing is enabled across the gateway and the API using **Jaeger** and **OpenTelemetry**.
+-   **Persistent Data**: Keycloak data is persisted in a Docker volume, so users and configurations are not lost on restart.
 
 ## Tech Stack
 
--   **.NET 8** (or your version) - A fast, modern, and cross-platform framework for building web APIs.
--   **Keycloak** - An open-source Identity and Access Management (IAM) solution.
--   **Docker** - Used for running a local instance of Keycloak.
+-   **.NET 8**
+-   **ASP.NET Core**
+-   **Docker & Docker Compose**
+-   **Keycloak** (Identity & Access Management)
+-   **Jaeger** (Distributed Tracing)
+-   **OpenTelemetry** (Telemetry Standard)
